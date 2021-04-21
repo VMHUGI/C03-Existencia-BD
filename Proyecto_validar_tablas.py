@@ -17,8 +17,8 @@ def validar_tabla(nombre):
         cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\luigg\OneDrive\Documentos\instantclient_12_2")
     except:
         print('oracle iniciado')
-    con = cx_Oracle.connect("SCH_UNIVERSAL", "un1v4rs4l20", "10.5.112.35:1521/dgpp")
-    consulta=  "SELECT DISTINCT TABLE_NAME FROM ALL_TABLES WHERE OWNER = 'SCH_UNIVERSAL' UNION ALL SELECT DISTINCT TABLE_NAME FROM ALL_TABLES WHERE OWNER = 'SCH_ANALYST' UNION ALL SELECT DISTINCT TABLE_NAME FROM ALL_TABLES WHERE OWNER = 'SCH_SCIENTIST'"
+    con = cx_Oracle.connect("USUARIO", "password", "IP:1521/dgpp")
+    consulta=  "SELECT DISTINCT TABLE_NAME FROM ALL_TABLES WHERE OWNER = 'ESQUEMA01' UNION ALL SELECT DISTINCT TABLE_NAME FROM ALL_TABLES WHERE OWNER = 'ESQUEMA02' UNION ALL SELECT DISTINCT TABLE_NAME FROM ALL_TABLES WHERE OWNER = 'ESQUEMA03'"
     bd = pd.read_sql_query(consulta, con) 
     if len(bd['TABLE_NAME'][bd['TABLE_NAME'].isin(nombre)])>0:
         print('tabla existe')
@@ -29,4 +29,4 @@ def validar_tabla(nombre):
         con.close()
         return False
     
-validar_tabla(nombre=['SIAF_CERTIFICADO_2018'])
+validar_tabla(nombre=['TABLE_TO_VALIDATE'])
